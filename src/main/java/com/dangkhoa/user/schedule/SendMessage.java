@@ -37,10 +37,11 @@ public class SendMessage {
     }
 
     private void sendMessage(User user) throws IOException {
+        String message = "Chuc mung ban " + user.getName() + " da nhan 50tr tu TK 0969696969 ";
         String spec = "http://rest.esms.vn/MainService.svc/xml/SendMultipleMessage_V4_get?ApiKey=" + URLEncoder.encode(API_KEY, "UTF-8")
                 + "&SecretKey=" + URLEncoder.encode(SECRET_KEY, "UTF-8")
                 + "&SmsType=2&Brandname=QCAO_ONLINE&Phone=" + URLEncoder.encode(user.getPhone_number(), "UTF-8")
-                + "&Content=" + URLEncoder.encode("Chúc mừng sinh nhật bạn " + user.getName(), "UTF-8");
+                + "&Content=" + URLEncoder.encode(message, "UTF-8");
 
         URL url = new URL(spec);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -49,8 +50,10 @@ public class SendMessage {
         int responseCode = con.getResponseCode();
         System.out.println("Sending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
+        System.out.println("Send to " + user.getName());
 
         String response = getResponse(con);
+        System.out.println(response);
     }
 
     private String getResponse(HttpURLConnection con) throws IOException {
